@@ -13,8 +13,14 @@
     
     <main>
         <div class="button-container">
-            <button class="button3d left" onclick="afficherSection('projets')">Projets</button>
-            <button class="button3d right" onclick="afficherSection('contact')">Contact</button>
+            <div class="button-group">
+                <button id="projetsButton" class="button3d left" onclick="diviserBouton('projetsButton', 'projets')">Projets</button>
+                <div id="projetsButtonContainer"></div>
+            </div>
+            <div class="button-group">
+                <button id="contactButton" class="button3d right" onclick="diviserBouton('contactButton', 'contact')">Contact</button>
+                <div id="contactButtonContainer"></div>
+            </div>
         </div>
 
         <!-- Section Projets -->
@@ -36,14 +42,34 @@
         <p>&copy; 2025 Mon Portfolio</p>
     </footer>
 
-    <div id="character">
-        <img src="character.gif" alt="Personnage animé">
-    </div>
-
     <!-- Scripts JavaScript -->
     <script src="projets.js"></script>
-    <script src="character.js"></script>
     <script>
+        function diviserBouton(buttonId, sectionId) {
+            const mainButton = document.getElementById(buttonId);
+            mainButton.style.display = 'none';
+            
+            const container = document.getElementById(buttonId + 'Container');
+            const numberOfButtons = 3;
+            const buttonClass = buttonId === 'projetsButton' ? 'left' : 'right';
+            
+            for (let i = 0; i < numberOfButtons; i++) {
+                const smallButton = document.createElement('button');
+                smallButton.textContent = `${i + 1}`;
+                smallButton.className = `smallButton ${buttonClass}`;
+                container.appendChild(smallButton);
+                
+                setTimeout(() => {
+                    smallButton.style.opacity = '1';
+                    smallButton.style.transform = 'scale(1)';
+                }, i * 100);
+
+                smallButton.onclick = function() {
+                    afficherSection(sectionId);
+                };
+            }
+        }
+
         function afficherSection(sectionId) {
             // Cacher toutes les sections
             const sections = document.querySelectorAll('section');
