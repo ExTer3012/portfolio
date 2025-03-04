@@ -1,8 +1,64 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<<<<<<< Updated upstream
     <meta http-equiv="refresh" content="0; href=php/accueil.php">
+=======
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+>>>>>>> Stashed changes
     <title>Mon Portfolio</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+<body>
+    <header>
+        <h1>Mon Portfolio</h1>
+    </header>
+    
+    <main>
+        <div class="button-container">
+            <button class="button3d left" onclick="afficherSection('projets')">Projets</button>
+            <button class="button3d right" onclick="afficherSection('contact')">Contact</button>
+        </div>
+
+        <!-- Section Projets -->
+        <section id="projets" class="hidden">
+            <h2>Mes Projets</h2>
+            <div id="projets-container">
+                <!-- Le contenu des projets sera inséré ici par JavaScript -->
+            </div>
+        </section>
+
+        <!-- Section Contact -->
+        <section id="contact" class="hidden">
+            <h2>Contact</h2>
+            <p>Vous pouvez me contacter via email : exemple@domaine.com</p>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Mon Portfolio</p>
+    </footer>
+
+    <div id="character">
+        <img src="character.gif" alt="Personnage animé">
+    </div>
+
+    <!-- Scripts JavaScript -->
+    <script src="projets.js"></script>
+    <script src="character.js"></script>
+    <script>
+        function afficherSection(sectionId) {
+            // Cacher toutes les sections
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => section.classList.add('hidden'));
+
+            // Afficher la section cliquée
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
 </html>
