@@ -43,31 +43,52 @@
     </footer>
 
     <!-- Scripts JavaScript -->
-    <script src="projets.js"></script>
     <script>
+        const projetsContenu = ['Jeu de l"oie', 'troll farceur', 'matching', 'Mathopia'];
+        const contactContenu = ['Email', 'LinkedIn', 'GitHub', 'CV', 'discord'];
+
         function diviserBouton(buttonId, sectionId) {
             const mainButton = document.getElementById(buttonId);
             mainButton.style.display = 'none';
             
             const container = document.getElementById(buttonId + 'Container');
-            const numberOfButtons = 5;
+            const contenu = buttonId === 'projetsButton' ? projetsContenu : contactContenu;
             const buttonClass = buttonId === 'projetsButton' ? 'left' : 'right';
+            const angleStep = 360 / contenu.length; // Angle entre chaque bouton
+            const radius = 80; // Rayon du cercle
             
-            for (let i = 0; i < numberOfButtons; i++) {
+            contenu.forEach((item, index) => {
                 const smallButton = document.createElement('button');
-                smallButton.textContent = `${i + 1}`;
                 smallButton.className = `smallButton ${buttonClass}`;
+                
+                if (item.startsWith('http') || item.startsWith('./')) {
+                    const img = document.createElement('img');
+                    img.src = item;
+                    img.alt = `Image ${index + 1}`;
+                    smallButton.appendChild(img);
+                } else {
+                    smallButton.textContent = item;
+                }
+                
+                // Calcul de la position en cercle
+                const angle = index * angleStep;
+                const x = 50 + radius * Math.cos(angle * Math.PI / 180);
+                const y = 50 + radius * Math.sin(angle * Math.PI / 180);
+                
+                smallButton.style.top = `${y}px`;
+                smallButton.style.left = `${x}px`;
+                
                 container.appendChild(smallButton);
                 
                 setTimeout(() => {
                     smallButton.style.opacity = '1';
                     smallButton.style.transform = 'scale(1)';
-                }, i * 100);
+                }, index * 100);
 
                 smallButton.onclick = function() {
                     afficherSection(sectionId);
                 };
-            }
+            });
         }
 
         function afficherSection(sectionId) {

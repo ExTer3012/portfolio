@@ -6,7 +6,7 @@ body {
     background-color: #f4f4f4;
 }
 
-header {
+header, footer {
     background-color: #333;
     color: #fff;
     padding: 1rem;
@@ -29,41 +29,144 @@ main {
     height: 200px;
 }
 
-.small-button-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+.button3d, .smallButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    position: relative;
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.button3d {
+    width: 200px;
+    height: 200px;
+    line-height: 200px;
+    font-size: 24px;
+    border-radius: 15px;
 }
 
 .smallButton {
     position: absolute;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    text-align: center;
-    font-size: 12px;
-    font-weight: bold;
-    color: #fff;
-    border: none;
+    width: 80px;
+    height: 80px;
+    font-size: 14px;
     border-radius: 50%;
     opacity: 0;
     transform: scale(0);
     transition: all 0.3s ease-out;
+    padding: 5px;
+    overflow: hidden;
+    word-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.2;
 }
 
-.button-group.left {
-    align-items: flex-start;
+.button3d::before, .smallButton::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
 }
 
-.button-group.right {
-    align-items: flex-end;
+.button3d::before {
+    border-radius: 15px;
+    transform: translateZ(-40px) scale(0.98);
 }
 
-/* Styles pour les conteneurs de petits boutons */
-#projetsButtonContainer,
-#contactButtonContainer {
+.smallButton::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.1);
+    border-radius: 50%;
+    transform: translateZ(-10px) scale(0.98);
+    transition: all 0.3s ease;
+}
+
+.button3d:hover, .smallButton:hover {
+    transform: translateY(-5px);
+}
+
+.button3d:hover::before {
+    transform: translateZ(-60px) scale(0.96);
+}
+
+.smallButton:hover {
+    transform: translateY(-2px) scale(1);
+}
+
+.smallButton:hover::before {
+    transform: translateZ(-15px) scale(0.96);
+}
+
+.button3d:active, .smallButton:active {
+    transform: translateY(5px);
+}
+
+.button3d:active::before {
+    transform: translateZ(-20px) scale(0.99);
+}
+
+.smallButton:active {
+    transform: translateY(2px) scale(1);
+}
+
+.smallButton:active::before {
+    transform: translateZ(-5px) scale(0.99);
+}
+
+.left {
+    background-color: #4CAF50;
+}
+
+.right {
+    background-color: #008CBA;
+}
+
+.button3d.left {
+    box-shadow: 0 15px 0 #45a049, 0 22px 20px rgba(0,0,0,0.4);
+}
+
+.button3d.right {
+    box-shadow: 0 15px 0 #0077A7, 0 22px 20px rgba(0,0,0,0.4);
+}
+
+.smallButton.left {
+    background-color: #4CAF50;
+    box-shadow: 0 5px 0 #45a049, 0 7px 10px rgba(0,0,0,0.4);
+}
+
+.smallButton.right {
+    background-color: #008CBA;
+    box-shadow: 0 5px 0 #0077A7, 0 7px 10px rgba(0,0,0,0.4);
+}
+
+section {
+    background-color: #fff;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hidden {
+    display: none;
+}
+
+#projetsButtonContainer, #contactButtonContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -76,146 +179,4 @@ main {
 
 .button-group.right #contactButtonContainer {
     justify-content: flex-end;
-}
-
-.button3d {
-    display: inline-block;
-    width: 200px;
-    height: 200px;
-    line-height: 200px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 24px;
-    font-weight: bold;
-    color: #fff;
-    border: none;
-    border-radius: 15px;
-    position: relative;
-    transition: all 0.3s ease;
-    transform-style: preserve-3d;
-    perspective: 1000px;
-}
-
-.button3d::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.1);
-    border-radius: 15px;
-    transform: translateZ(-40px) scale(0.98);
-    transition: all 0.3s ease;
-}
-
-.button3d:hover {
-    transform: translateY(-5px);
-}
-
-.button3d:hover::before {
-    transform: translateZ(-60px) scale(0.96);
-}
-
-.button3d:active {
-    transform: translateY(5px);
-}
-
-.button3d:active::before {
-    transform: translateZ(-20px) scale(0.99);
-}
-
-.left {
-    background-color: #4CAF50;
-    box-shadow: 0 15px 0 #45a049, 0 22px 20px rgba(0,0,0,0.4);
-}
-
-.right {
-    background-color: #008CBA;
-    box-shadow: 0 15px 0 #0077A7, 0 22px 20px rgba(0,0,0,0.4);
-}
-
-/* Style des sections */
-section {
-    background-color: #fff;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Masquer les sections par défaut */
-.hidden {
-    display: none; /* Les sections sont cachées */
-}
-
-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 1rem;
-}
-
-.smallButton {
-    display: inline-block;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: bold;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    position: relative;
-    transition: all 0.3s ease;
-    transform-style: preserve-3d;
-    perspective: 1000px;
-    opacity: 0;
-    transform: scale(0);
-    margin: 5px;
-}
-
-.smallButton::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.1);
-    border-radius: 8px;
-    transform: translateZ(-10px) scale(0.98);
-    transition: all 0.3s ease;
-}
-
-.smallButton:hover {
-    transform: translateY(-2px) scale(1);
-}
-
-.smallButton:hover::before {
-    transform: translateZ(-15px) scale(0.96);
-}
-
-.smallButton:active {
-    transform: translateY(2px) scale(1);
-}
-
-.smallButton:active::before {
-    transform: translateZ(-5px) scale(0.99);
-}
-
-.smallButton.left {
-    background-color: #4CAF50;
-    box-shadow: 0 5px 0 #45a049, 0 7px 10px rgba(0,0,0,0.4);
-}
-
-.smallButton.right {
-    background-color: #008CBA;
-    box-shadow: 0 5px 0 #0077A7, 0 7px 10px rgba(0,0,0,0.4);
 }
