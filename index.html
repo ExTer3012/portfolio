@@ -8,10 +8,17 @@
 </head>
 <body>
     <header>
-        <h1>Mon Portfolio</h1>
+        <h1>Alexis Lemoine</h1>
     </header>
     
     <main>
+        <section id="introduction">
+            <h2>Bienvenue sur mon portfolio</h2>
+            <p>Je m'appelle Alexis, je suis apprenti développeur en informatique.</p>
+            <p>Vous retrouverez sur mon portfolio les différent projets que j'ai réalisé à titre proffessionel ou personnel.</p>
+            <p>Tous mes projets sont également disponnible sur mon Github.</p>
+        </section>
+
         <div class="button-container">
             <div class="button-group">
                 <button id="projetsButton" class="button3d left" onclick="diviserBouton('projetsButton', 'projets')">Projets</button>
@@ -37,15 +44,55 @@
         const projetsContenu = ['Jeu de l"oie', 'troll farceur', 'matching', 'Mathopia'];
         const contactContenu = ['Email', 'LinkedIn', 'GitHub', 'CV', 'discord'];
         const contenuSpecifique = {
-            'Jeu de l"oie': '<h3>Jeu de l"oie</h3><p>Description du jeu de l"oie...</p>',
-            'troll farceur': '<h3>Troll Farceur</h3><p>Description du projet troll farceur...</p>',
-            'matching': '<h3>Matching Game</h3><p>Description du jeu de matching...</p>',
-            'Mathopia': '<h3>Mathopia</h3><p>Description du projet Mathopia...</p>',
-            'Email': '<h3>Email</h3><p>Mon adresse email : exemple@email.com</p>',
-            'LinkedIn': '<h3>LinkedIn</h3><p>Mon profil LinkedIn : [lien]</p>',
-            'GitHub': '<h3>GitHub</h3><p>Mon profil GitHub : [lien]</p>',
-            'CV': '<h3>CV</h3><p>Téléchargez mon CV ici : [lien]</p>',
-            'discord': '<h3>Discord</h3><p>Mon discord : [lien]</p>'
+            'Jeu de l"oie': `
+                <h3>Jeu de l'oie</h3>
+                <img src="images/oie.png" alt="Jeu de l'oie" style="max-width: 100%; height: auto;">
+                <p>Pour ce projet, j'ai réalisé avec un camarade une version du jeu de plateau entièrement sur python.</p>
+                <p>Le jeu reprend les régles de base du jeu classique, en y ajoutant une selection de pseudonyme et de pion.</p>
+                <p>Profil Github de mon camarade : <a href="https://github.com/Sacha6254">Voir son profil</a></p>
+            `,
+            'troll farceur': `
+                <h3>Troll Farceur</h3>
+                <img src="images/troll.png" alt="Troll Farceur" style="max-width: 100%; height: auto;">
+                <p>Pour ce projet, j'ai réalisé avec un camarade une version fantaisique du jeu de l'oie.</p>
+                <p>Le jeu se base sur les régles du jeu de l'oie en les retouchant légérement, arrivé à un certain point du jeu, on risque de réveiller un troll qui fonctionnera comme un BOT.</p>
+                <p>Profil Github de mon camarade : <a href="https://github.com/Sacha6254">Voir son profil</a></p>
+            `,
+            'matching': `
+                <h3>Matching Game</h3>
+                <img src="images/matching.png" alt="Matching" style="max-width: 100%; height: auto;">
+                <p>Projet qui met en place un site où l'on peut filtrer nos recherche pour trouver des films.</p>
+                <p>Avec mon camarade, on a crée un système de gestion d'utilisateur et de notation.</p>
+                <p>Profil Github de mon camarade : <a href="https://github.com/Shyedd">Voir son profil</a></p>
+            `,
+            'Mathopia': `
+                <h3>Mathopia</h3>
+                <img src="images/jeu_multi.png" alt="Mathopia" style="max-width: 100%; height: auto;">
+                <p>Mathopia est un RPG que j'ai développer avec des camarades de classe en 2021, le projet est rester à l'abandon pendant plus de 4 ans. Actuellement j'essai de le refaire fonctionner mais quelque problème persiste.</p>
+                <p>Le jeu est multijoueur et possède une interface administrateur avec un éditeur de map.</p>
+                <img src="images/editeur_de_map.png" alt="Mathopia" style="max-width: 100%; height: auto;">
+            `,
+            'Email': `
+                <h3>Email</h3>
+                <p>Mon adresse email : lemoinea54460@gmail.com</p>
+            `,
+            'LinkedIn': `
+                <h3>LinkedIn</h3>
+                <p>Mon profil LinkedIn : <a href="https://www.linkedin.com/in/alexis-lemoine-9160262b7/">Voir mon profil</a></p>
+            `,
+            'GitHub': `
+                <h3>GitHub</h3>
+                <p>Mon profil GitHub : <a href="https://github.com/ExTer3012">Voir mes projets</a></p>
+            `,
+            'CV': `
+                <h3>CV</h3>
+                <img src="images/cv.png" alt="Aperçu CV" style="max-width: 100%; height: auto;">
+                <p>Téléchargez mon CV ici : <a href="images/CV_Alexis_Lemoine_corigé.pdf" download>Télécharger le CV</a></p>
+            `,
+            'discord': `
+                <h3>Discord</h3>
+                <img src="images/profil.png" alt="mon discord" style="max-width: 100%; height: auto;">
+            `
         };
 
         let smallButtons = [];
