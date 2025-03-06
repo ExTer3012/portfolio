@@ -23,18 +23,8 @@
             </div>
         </div>
 
-        <!-- Section Projets -->
-        <section id="projets" class="hidden">
-            <h2>Mes Projets</h2>
-            <div id="projets-container">
-                <!-- Le contenu des projets sera inséré ici par JavaScript -->
-            </div>
-        </section>
-
-        <!-- Section Contact -->
-        <section id="contact" class="hidden">
-            <h2>Contact</h2>
-            <p>Vous pouvez me contacter via email : exemple@domaine.com</p>
+        <section id="contenu-specifique" class="hidden">
+            <!-- Le contenu spécifique sera inséré ici -->
         </section>
     </main>
     
@@ -46,6 +36,19 @@
     <script>
         const projetsContenu = ['Jeu de l"oie', 'troll farceur', 'matching', 'Mathopia'];
         const contactContenu = ['Email', 'LinkedIn', 'GitHub', 'CV', 'discord'];
+        const contenuSpecifique = {
+            'Jeu de l"oie': '<h3>Jeu de l"oie</h3><p>Description du jeu de l"oie...</p>',
+            'troll farceur': '<h3>Troll Farceur</h3><p>Description du projet troll farceur...</p>',
+            'matching': '<h3>Matching Game</h3><p>Description du jeu de matching...</p>',
+            'Mathopia': '<h3>Mathopia</h3><p>Description du projet Mathopia...</p>',
+            'Email': '<h3>Email</h3><p>Mon adresse email : exemple@email.com</p>',
+            'LinkedIn': '<h3>LinkedIn</h3><p>Mon profil LinkedIn : [lien]</p>',
+            'GitHub': '<h3>GitHub</h3><p>Mon profil GitHub : [lien]</p>',
+            'CV': '<h3>CV</h3><p>Téléchargez mon CV ici : [lien]</p>',
+            'discord': '<h3>Discord</h3><p>Mon discord : [lien]</p>'
+        };
+
+        let smallButtons = [];
 
         function diviserBouton(buttonId, sectionId) {
             const mainButton = document.getElementById(buttonId);
@@ -78,17 +81,99 @@
                 smallButton.style.top = `${y}px`;
                 smallButton.style.left = `${x}px`;
                 
+                // Calculer la direction du glissement
+                const dx = x - 50; // différence en x par rapport au centre
+                const dy = y - 50; // différence en y par rapport au centre
+                const distance = Math.sqrt(dx*dx + dy*dy);
+                const normalizedDx = dx / distance;
+                const normalizedDy = dy / distance;
+                
+                // Appliquer l'effet de glissement vers l'extérieur
+                smallButton.addEventListener('mouseenter', function() {
+                    const hoverDistance = 10; // distance de glissement en pixels
+                    this.style.transform = `translate(${normalizedDx * hoverDistance}px, ${normalizedDy * hoverDistance}px)`;
+                });
+                
+                smallButton.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translate(0, 0)';
+                });
+                
+                smallButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    afficherContenuSpecifique(item, this);
+                });
+
                 container.appendChild(smallButton);
+                smallButtons.push(smallButton);
                 
                 setTimeout(() => {
                     smallButton.style.opacity = '1';
                     smallButton.style.transform = 'scale(1)';
                 }, index * 100);
-
-                smallButton.onclick = function() {
-                    afficherSection(sectionId);
-                };
             });
+        }
+
+        let boutonActif = null;
+
+        function afficherContenuSpecifique(item, button) {
+            const section = document.getElementById('contenu-specifique');
+            if (section) {
+                if (boutonActif === button) {
+                    section.classList.add('hidden');
+                    boutonActif = null;
+                } else {
+                    animerBoutonAuCentre(button);
+                    boutonActif = button;
+
+                    section.innerHTML = contenuSpecifique[item] || '<p>Contenu non disponible</p>';
+                    section.classList.remove('hidden');
+                    section.style.opacity = '0';
+                    section.style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        section.style.transition = 'opacity 0.5s, transform 0.5s';
+                        section.style.opacity = '1';
+                        section.style.transform = 'translateY(0)';
+                    }, 50);
+                }
+            }
+        }
+
+        function reinitialiserPositionBouton(button) {
+            button.style.transition = 'all 0.5s ease';
+            button.style.transform = '';
+            button.style.zIndex = '';
+        }
+
+        function reinitialiserPositionBoutons() {
+            const smallButtons = document.querySelectorAll('.smallButton');
+            smallButtons.forEach(button => {
+                button.style.transition = 'all 0.5s ease';
+                button.style.transform = '';
+                button.style.zIndex = '';
+                button.style.opacity = '1';
+                button.style.display = ''; // Assurez-vous que le bouton est visible
+            });
+        }
+
+        function animerBoutonAuCentre(button) {
+            const rect = button.getBoundingClientRect();
+            const centerX = window.innerWidth / 2 - rect.width / 2;
+            const centerY = window.innerHeight / 3 - rect.height / 2;
+
+            const deltaX = centerX - rect.left;
+            const deltaY = centerY - rect.top;
+
+            smallButtons.forEach(btn => {
+                if (btn !== button) {
+                    btn.style.transition = 'all 0.5s ease';
+                    btn.style.transform = 'scale(0.8)'; // Réduire légèrement la taille
+                }
+            });
+
+            button.style.transition = 'all 0.5s ease';
+            button.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+            button.style.zIndex = '1000';
         }
 
         function afficherSection(sectionId) {
